@@ -8,10 +8,10 @@ const Dashboard = () => {
 
   return (
     <div className="flex h-full">
-      <div className="sideBar  md:w-[10%] lg:w-[20%] h-full ">
+      <div className="sideBar w-[15%] md:w-[10%] lg:w-[20%] h-full ">
         <Sidebar />
       </div>
-      <div className="main w-[80%] md:w-[90%]  bg-[#b1d5f12a]">
+      <div className="main w-[85%] md:w-[90%]  bg-[#b1d5f12a]">
           <Header />
           <MainContent />
         </div>

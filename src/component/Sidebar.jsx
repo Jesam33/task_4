@@ -113,7 +113,7 @@ const Sidebar = () => {
               Project Manager
             </p>
           </div>
-          <FaChevronDown className="ml-4" />
+          <FaChevronDown className="ml-4 hidden lg:flex" />
         </div>
       </div>
     </div>

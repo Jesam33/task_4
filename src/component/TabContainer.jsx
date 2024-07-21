@@ -13,7 +13,7 @@ const TabContainer = () => {
 
   const handleSwitchToLoginTab = () => {
     setPendingLoginTabSwitch(true);
-    console.log('Working')
+    console.log('Working');
   };
 
   const handleNextStep = () => {
@@ -23,14 +23,9 @@ const TabContainer = () => {
   useEffect(() => {
     if (pendingLoginTabSwitch) {
       setActiveTab(1); // Assuming the second tab (index 1) is the login tab
-      // setCurrentStep(1); // Reset step to initial step when switching to login tab
       setPendingLoginTabSwitch(false); // Reset the pending state
     }
   }, [pendingLoginTabSwitch]);
-
-  
-
-
 
   const tabData = [
     {
@@ -39,17 +34,18 @@ const TabContainer = () => {
         <SignUpForm
           switchToLoginTab={handleSwitchToLoginTab}
           switchToNextStep={handleNextStep}
+          currentStep={currentStep} // Pass currentStep to SignUpForm
+          setCurrentStep={setCurrentStep} // Pass setCurrentStep to SignUpForm
+          setActiveTab={setActiveTab} // Pass setActiveTab to SignUpForm
         />
       ),
     },
     { label: "Log In", content: <LoginForm /> },
   ];
 
-  // bg-[#fbfbfb]
-
   return (
     <div className="tabs bg-[#fbfbfb] w-full h-screen flex justify-center items-center">
-      <div className="bg-[#ffffff] relative shadow-xl w-[95%] md:w-[50%] lg:w-[40%] rounded-[20px] lg:px-8 px-5 md:px-5 py-8   ">
+      <div className="bg-[#ffffff] relative shadow-xl w-[95%] md:w-[50%] lg:w-[35%] rounded-[20px] lg:px-8 px-5 md:px-5 py-8">
         <div className="tab-list w-full flex items-center justify-between py-2">
           {currentStep === 1 ? (
             <div className="flex gap-3">
@@ -63,16 +59,18 @@ const TabContainer = () => {
               ))}
             </div>
           ) : (
-            <h2>
-              {currentStep === 2
-                ? "Personal Details"
-                <span>2 of 3</span>
-                : currentStep === 4
-                ? ""
-                : "Additional Details"}
+            <h2 className="flex logoText font-[700] items-center">
+              {currentStep === 2 ? (
+                <>
+                  Personal Details <span className="ml-8 text-sm logoText text-[#6BC62D] font-[600]">2 of 3</span>
+                </>
+              ) : (
+                <>
+                Add Address <span className="ml-8 text-sm logoText text-[#6BC62D] font-[600]">3 of 3</span>
+              </>
+              )}
             </h2>
           )}
-
           <CloseIcon />
         </div>
         <div className="tab-content-list">
@@ -86,5 +84,4 @@ const TabContainer = () => {
     </div>
   );
 };
-
 export default TabContainer;

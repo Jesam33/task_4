@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Steps from "./Steps";
 import { AuthContext } from "../auth/AuthContext"; // Ensure this path is correct
 import PlaceIcon from "@mui/icons-material/Place";
@@ -8,10 +8,13 @@ import img2 from "../assets/img/Group.png";
 import img3 from "../assets/img/Google.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CiSearch } from "react-icons/ci";
+import { FiDollarSign, FiUsers } from "react-icons/fi";
+import { FaRegClock } from "react-icons/fa";
 
 // import { Navigate } from "react-router-dom";
 
-const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
+const SignUpForm = ({ switchToLoginTab, switchToNextStep, currentStep, setCurrentStep, setActiveTab }) => {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
   const [showAdditionalFields, setShowAdditionalFields] = useState(false);
@@ -45,7 +48,7 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
   const handleNextStep = () => {
     if (validateForm()) {
       setStep(step + 1);
-      // switchToNextStep();
+      switchToNextStep();
     }
   };
 
@@ -53,7 +56,7 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
     if (validateForm()) {
       setStep(step + 1);
       // switchToNextStep();
-      navigate('/successPage');
+      navigate("/successPage");
     }
   };
 
@@ -70,11 +73,17 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
         // setStep(step + 1);
         toast.success("Sign up success");
         setTimeout(() => {
-          navigate('/successPage'); // Navigate to dashboard after successful sign up
-        },2000);
+          navigate("/successPage"); // Navigate to dashboard after successful sign up
+        }, 2000);
       } catch (error) {
         toast.error("Sign Up failed. Please provide valid details.");
-        console.error('Error during sign up:', error);
+        setTimeout(() => {
+          setStep(1) // Navigate to dashboard after successful sign up
+          setCurrentStep(1); //
+          setActiveTab(0);
+        }, 2000);
+       
+        console.error("Error during sign up:", error);
       }
     }
   };
@@ -139,7 +148,7 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
   return (
     <div className=" w-full mt-0 lg-mt-6">
       {step === 1 && (
-          <>
+        <>
           <div className="flex gap-3 mt-2  lg:mt-5">
             {images.map((image, index) => (
               <div key={index} className="rounded-full p-0 bg-slate-300">
@@ -147,7 +156,9 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
               </div>
             ))}
           </div>
-          <p className="mt-2 lg:mt-4 text-[14px] lg:text-[15ppx]">or register with email</p>
+          <p className="mt-2 lg:mt-4 text-[14px] lg:text-[15ppx]">
+            or register with email
+          </p>
           <div className=" mt-3 lg:mt-4 w-full">
             <Steps
               //   title="User Details"
@@ -190,7 +201,6 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
       {step === 2 && (
         <>
           <div className=" w-full mt-4">
-            
             <Steps
               //   title="Continuous Details"
               fields={[
@@ -225,7 +235,6 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
               handleButtonClick={handleNextStep}
               errors={formErrors}
             />
-            
           </div>
         </>
       )}
@@ -236,22 +245,33 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
             <>
               <div>
                 {/* <label>Search Location</label> */}
-                <input
-                  type="text"
-                  name="searchLocation"
-                  placeholder="Search for address"
-                  onChange={handleChange}
-                  className="mt-4 w-full px-3 rounded-[10px]"
-                />
-                <p className="text-[12px] text-[#1A0710A6] font-[600]">Your address is not visible to other users</p>
+                <div className="searc mt-4 md:mt-0 lg:mt-0">
+                  <div className="search">
+                    <div className="flex items-center border-2 rounded-[10px] gap-1 px-2 bg-white">
+                      <CiSearch className="w-5 h-5 text-[#AAAAAA]" />{" "}
+                      {/* Adjust the size and color */}
+                      <input
+                        type="text"
+                        placeholder="Search Location"
+                        className="border-0 font-[400] text-[14px] bg-transparent outline-0 h-[36px] w-[180px] px-2 py-3"
+                      />
+                    </div>
+                  </div>
+                </div>
+               
+                <p className="text-[12px] text-[#1A0710A6] font-[600]">
+                  Your address is not visible to other users
+                </p>
               </div>
               <div className=" md:flex  mt-4 lg:gap-6 md:gap-3 lg:mt-8 md:mt-6 ">
                 <div className="flex gap-0 my-3 md:my-0 lg:my-0 md:w-1/1 md:h-8 text-[#5932EA] border-2 border-[#EF498F47] lg:px-2 md:px-1 py-0 rounded-2xl items-center  font-[700] ">
-
                   <span>
                     <PlaceIcon fontSize="small" />
                   </span>
-                  <button className="lg:text-[14px] text-[12px] p-2 md:p-0 lg:p-0 md:text-[11px] "  onClick={handleUseCurrentLocation}>
+                  <button
+                    className="lg:text-[14px] text-[12px] p-2 md:p-0 lg:p-0 md:text-[11px] "
+                    onClick={handleUseCurrentLocation}
+                  >
                     Use Current Location
                   </button>
                 </div>
@@ -266,10 +286,20 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
               </div>
 
               <div className="info mt-[120px] bottom-0 m">
-                <h2 className="text-[16px] font-[700] text-[#1A0710A6]">Sharing your address shows:</h2>
-                <p className="text-[12px] text-[#1A0710A6]">Peple nar you</p>
-                <p className="text-[12px] text-[#1A0710A6]">Estimated delivery time</p>
-                <p className="text-[12px] text-[#1A0710A6]">Estimated shipping costs</p>
+                <h2 className="text-[16px] font-[700] ">
+                  Sharing your address shows:
+                </h2>
+                
+                <div className="mt-3">
+                <p className="text-[14px] font-[500] text-[#1A0710A6] flex items-center gap-2"><span><FiUsers /></span>People near you</p>
+                <p className="text-[14px] font-[500] text-[#1A0710A6] flex items-center gap-2"><span><FaRegClock /></span>
+                  Estimated delivery time 
+                </p>
+                <p className="text-[14px] font-[500] text-[#1A0710A6] flex items-center gap-2"><span><FiDollarSign /></span>
+                  Estimated shipping costs 
+                </p>
+                </div>
+                
               </div>
             </>
           ) : (

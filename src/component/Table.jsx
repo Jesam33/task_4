@@ -15,7 +15,7 @@ const CustomerTable = () => {
   return (
     <div className="p-4">
     <h1 className="text-xl font-bold mb-4">All Customers</h1>
-    <div className="overflow-x-auto overflow-y-auto max-h-[300px] lg:max-h-[400px]">
+    <div className="overflow-x-auto overflow-y-auto max-h-[500px] lg:max-h-[400px]">
       <table className="w-full  bg-white border border-gray-200">
         <thead>
           <tr className="w-full bg-gray-50 text-[#B5B7C0] font-[500]">

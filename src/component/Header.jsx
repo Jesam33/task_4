@@ -12,7 +12,7 @@ const Header = () => {
             Hello Evano👋,
           </h1>
         </div>
-        <div className="searc">
+        <div className="searc mt-4 md:mt-0 lg:mt-0">
           <div className="search">
             <div className="flex items-center gap-1 px-2 bg-white">
               <CiSearch className="w-5 h-5 text-[#AAAAAA]" />{" "}

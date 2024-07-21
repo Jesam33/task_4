@@ -230,7 +230,7 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
         </>
       )}
       {step === 3 && (
-        <div>
+        <div className="">
           {/* <h2>Location Details</h2> */}
           {!showAdditionalFields ? (
             <>
@@ -265,7 +265,7 @@ const SignUpForm = ({ switchToLoginTab, switchToNextStep }) => {
                 </div>
               </div>
 
-              <div className="info absolute bottom-0 py-[50px]">
+              <div className="info mt-[120px] bottom-0 m">
                 <h2 className="text-[16px] font-[700] text-[#1A0710A6]">Sharing your address shows:</h2>
                 <p className="text-[12px] text-[#1A0710A6]">Peple nar you</p>
                 <p className="text-[12px] text-[#1A0710A6]">Estimated delivery time</p>

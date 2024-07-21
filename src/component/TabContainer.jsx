@@ -49,7 +49,7 @@ const TabContainer = () => {
 
   return (
     <div className="tabs bg-[#fbfbfb] w-full h-screen flex justify-center items-center">
-      <div className="bg-[#ffffff] relative shadow-xl w-[95%] md:w-[50%] lg:w-[40%] rounded-[20px] lg:px-8 px-5 md:px-5 py-4 h-[85%]  ">
+      <div className="bg-[#ffffff] relative shadow-xl w-[95%] md:w-[50%] lg:w-[40%] rounded-[20px] lg:px-8 px-5 md:px-5 py-4   ">
         <div className="tab-list w-full flex items-center justify-between py-2">
           {currentStep === 1 ? (
             <div className="flex gap-3">
